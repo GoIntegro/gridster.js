@@ -2960,6 +2960,41 @@
         return this;
     };
 
+    /**
+     * Hack metido a mano para que sea responsive
+     *
+     * @param options
+     * @returns {boolean}
+     */
+    fn.resize_widget_dimensions = function(options) {
+        if (options.widget_margins) {
+            this.options.widget_margins = options.widget_margins;
+        }
+
+        if (options.widget_base_dimensions) {
+            this.options.widget_base_dimensions = options.widget_base_dimensions;
+        }
+
+        this.min_widget_width = (this.options.widget_margins[0] * 2) + this.options.widget_base_dimensions[0];
+        this.min_widget_height = (this.options.widget_margins[1] * 2) + this.options.widget_base_dimensions[1];
+
+        $('head [generated-from="gridster"]:not(:last)').remove();
+
+        this.$widgets.each($.proxy(function(i, widget) {
+            var $widget = $(widget);
+            $widget.css("height", '');
+            $widget.css("width", '');
+            $widget.css("top", '');
+            $widget.css("left", '');
+            $widget = this.resize_widget($widget);
+        }, this));
+
+        this.generate_grid_and_stylesheet();
+        this.get_widgets_from_DOM();
+        this.set_dom_grid_height();
+        return false;
+    };
+
 
     /**
     * It generates the neccessary styles to position the widgets.
@@ -2993,7 +3028,8 @@
         // don't duplicate stylesheets for the same configuration
         var serialized_opts = $.param(opts);
         if ($.inArray(serialized_opts, Gridster.generated_stylesheets) >= 0) {
-            return false;
+            // hack metido a mano!! NO TOCAR
+            //return false;
         }
 
         Gridster.generated_stylesheets.push(serialized_opts);
@@ -3040,6 +3076,8 @@
     fn.add_style_tag = function(css) {
       var d = document;
       var tag = d.createElement('style');
+      // hack metido a mano!! NO TOCAR
+      tag.setAttribute('generated-from', 'gridster');
 
       d.getElementsByTagName('head')[0].appendChild(tag);
       tag.setAttribute('type', 'text/css');
