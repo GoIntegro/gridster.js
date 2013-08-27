@@ -2987,11 +2987,17 @@
             $widget.css("top", '');
             $widget.css("left", '');
             $widget = this.resize_widget($widget);
+            $widget.addClass("not-transitions");
         }, this));
 
         this.generate_grid_and_stylesheet();
         this.get_widgets_from_DOM();
         this.set_dom_grid_height();
+
+        this.$widgets.each($.proxy(function(i, widget) {
+            $(widget).trigger("resize");
+            $(widget).removeClass("not-transitions");
+        }, this));
         return false;
     };
 
