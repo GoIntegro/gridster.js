@@ -2,7 +2,17 @@
 * http://gridster.net/
 * Copyright (c) 2013 ducksboard; Licensed MIT */
 
-;(function($, window, document, undefined){
+(function(factory) {
+    // AMD
+    if (typeof define == "function" && define.amd) {
+        define('jquery-gridster-coords', ['jquery'], factory);
+    }
+    // Browser
+    else {
+        factory(jQuery);
+    }
+}(function($) {
+// ;(function($, window, document, undefined){
     /**
     * Creates objects with coordinates (x1, y1, x2, y2, cx, cy, width, height)
     * to simulate DOM elements on the screen.
@@ -101,9 +111,20 @@
         return ins;
     };
 
-}(jQuery, window, document));
+// }(jQuery, window, document));
+}));
 
-;(function($, window, document, undefined){
+(function(factory) {
+    // AMD
+    if (typeof define == "function" && define.amd) {
+        define('jquery-gridster-collision', ['jquery'], factory);
+    }
+    // Browser
+    else {
+        factory(jQuery);
+    }
+}(function($) {
+// ;(function($, window, document, undefined){
 
     var defaults = {
         colliders_context: document.body
@@ -314,7 +335,8 @@
     };
 
 
-}(jQuery, window, document));
+// }(jQuery, window, document));
+}));
 
 ;(function(window, undefined) {
     /* Debounce and throttle functions taken from underscore.js */
@@ -358,7 +380,17 @@
 
 })(window);
 
-;(function($, window, document, undefined){
+(function(factory) {
+    // AMD
+    if (typeof define == "function" && define.amd) {
+        define('jquery-gridster-drag', ['jquery'], factory);
+    }
+    // Browser
+    else {
+        factory(jQuery);
+    }
+}(function($) {
+// ;(function($, window, document, undefined){
 
     var defaults = {
         items: '.gs_w',
@@ -708,9 +740,20 @@
     };
 
 
-}(jQuery, window, document));
+// }(jQuery, window, document));
+}));
 
-;(function($, window, document, undefined) {
+(function(factory) {
+    // AMD
+    if (typeof define == "function" && define.amd) {
+        define(['jquery', 'jquery-gridster-collision', 'jquery-gridster-coords', 'jquery-gridster-drag'], factory);
+    }
+    // Browser
+    else {
+        factory(jQuery);
+    }
+}(function($) {
+// ;(function($, window, document, undefined) {
 
     var defaults = {
         namespace: '',
@@ -1894,14 +1937,14 @@
     */
     fn.is_empty = function(col, row) {
         if (typeof this.gridmap[col] !== 'undefined') {
-			if(typeof this.gridmap[col][row] !== 'undefined' &&
-				 this.gridmap[col][row] === false
-			) {
-				return true;
-			}
-			return false;
-		}
-		return true;
+            if(typeof this.gridmap[col][row] !== 'undefined' &&
+                 this.gridmap[col][row] === false
+            ) {
+                return true;
+            }
+            return false;
+        }
+        return true;
     };
 
 
@@ -3346,4 +3389,5 @@
 
     $.Gridster = fn;
 
-}(jQuery, window, document));
+// }(jQuery, window, document));
+}));
